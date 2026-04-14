@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'>
+    <title>Workout Guide</title>
+    <style>
+        body {
+            background-color: rgb(240, 224, 247);
+            background-image: url('cat3.png');
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-size: 2560px 1664px;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff5252;
+            margin-bottom: 30px;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: white;
+            color: rgb(255, 80, 80);
+            border: 2px solid rgb(255, 163, 233);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            background-image: url('cat2.png');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        button:hover {
+            background-color: #ffcccc;
+        }
+        #guide-section {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+        #guide-title {
+            text-align: center;
+            color: red;
+            border-bottom: 2px solid lavender;
+            padding-bottom: 10px;
+        }
+
+        #guide-media {
+            display: flex;
+            justify-self: normal;
+            border: 2px solid #ffcccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: fit-content;
+            height: fit-content;
+            margin-left: 50px;
+        }
+        .category-section {
+            margin-bottom: 30px; 
+        }
+
+        #category {
+            font-size: 16px;
+            font-weight: bold;
+            color: rgb(255, 80, 80);
+            margin-bottom: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .section-title {
+            color: #333;
+            margin-top: 20px;
+        }
+        ul {
+            line-height: 1.6;
+        }
+
+        #judul{
+            font-size: 30px;
+            font-weight: bold;
+            color: rgb(255, 80, 80);
+            margin-bottom: 40px;
+            margin-top: 100px;
+        }
+
+        #repcount{
+            font-size: 16px;
+            color: rgb(255, 80, 80);
+            margin-bottom: 5px;
+        }
+
+        #tutorrep{
+            font-size: 16px;
+            color: rgb(255, 80, 80);
+            margin-bottom: 80px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="judul">Workout Guide for Princess Aurel :D </div>
+    <div id="repcount">Untuk menentukan repetisi:</div>
+    <div id="tutorrep">
+    1. Lakukan gerakan sebanyak mungkin sampai otot sudah tidak kuat lagi (maximum repetisi).
+    <br> 2. Hitung 80% dari maximum repetisi untuk menentukan target repetisi di setiap set.
+    </div>
+    
+    <div class="category-section">
+    <div id="category">Persiapan & Pemulihan</div>
+    <div class="button-container">
+        <button onclick="showGuide('pemanasan')">Pemanasan</button>
+        <button onclick="showGuide('pendinginan')">Pendinginan</button>
+    </div>
+    </div>
+
+    <div class="category-section">
+        <div id="category">Push Exercises</div>
+        <div class="button-container">
+            <button onclick="showGuide('pushup')">Push Up</button>
+            <button onclick="showGuide('dips')">Dips</button>
+            <button onclick="showGuide('lateralraise')">Lateral Raise</button>
+            <button onclick="showGuide('dumbpress')">Dumbbell Press</button>
+        </div>
+    </div>
+
+    <div class="category-section">
+    <div id="category">Pull Exercises</div>
+    <div class="button-container">
+        <button onclick="showGuide('dumbbellcurl')">Dumbbell Curl</button>
+        <button onclick="showGuide('hammercurl')">Hammer Curl</button>
+        <button onclick="showGuide('backdumbbellrows')">Back Dumbbell Rows</button>
+        <button onclick="showGuide('backdumbbellflys')">Back Dumbbell Flys</button>
+    </div>
+    </div>
+
+    <div class="category-section">
+        <div id="category">Legs Exercises</div>
+        <div class="button-container">
+            <button onclick="showGuide('squat')">Squat</button>
+            <button onclick="showGuide('bss')">Bulgarian Split Squat</button>
+            <button onclick="showGuide('glute')">Glute Bridge</button>
+            <button onclick="showGuide('calf')">Calf Raises</button>
+        </div>
+    </div>
+
+    <div id="guide-section">
+        <h2 id="guide-title"></h2>
+        <div id="guide-media" style="margin: 15px 0;"></div>
+        
+        <h3 class="section-title">Reps & Set:</h3>
+        <p id="guide-reps"></p>
+        
+        <h3 class="section-title">Tutorial Step-by-Step:</h3>
+        <ul id="guide-steps"></ul>
+
+        <button onclick="closeGuide()" style="background-color: white; color: rgb(255, 80, 80); border: 2px solid rgb(255, 163, 233); padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; margin-top: 20px;">Close</button>
+
+    </div>
+
+    <script>
+        const workouts = {
+            "pemanasan": {
+                title: "Pemanasan (Warm-up)",
+                reps: "Durasi: 5 menit",
+                steps: [
+                    "Lakukan gerakan sesuai sama videonya, fokus di gerakan dinamis.",
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/cmple9fw65w?si=tfDVDc80raANrPMU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "pendinginan": {
+                title: "Pendinginan",
+                reps: "Durasi: 5 menit",
+                steps: [
+                    "Istirahat dulu beberapa menit setelah workout.",
+                    "Lakukan gerakan sesuai sama videonya, fokus di gerakan statis untuk meregangkan otot."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/gfzC9XMEypg?si=C4XwVBOgiEIlEbW2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "pushup": {
+                title: "Push Up",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Mulai dari posisi tengkurap di lantai, telapak tangan bertumpu di lantai selebar lebih dari bahu (posisi siku sekitar 45 derajat menyudut keluar)",
+                    "Tekuk kaki sekitar 90 derajat dan pertahankan otot inti (core) kencang dan punggung tetap lurus.",
+                    "Dorong tubuh sampai siku lurus, lalu turun hingga dada menyentuh lantai.",
+                    "Dorong telapak tangan ke lantai untuk meluruskan lengan dan kembali ke posisi awal."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/jWxvty2KROs?si=UtOalU7d8faUxzUP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "dips": {
+                title: "Dips",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Duduk di pinggir kursi atau bangku. Letakkan tangan di samping paha, jari mencengkeram ujung kursi.",
+                    "Geser badan ke depan sampai di depan kursi dengan kaki menapak di lantai.",
+                    "Tarik napas sambil turunkan tubuh dengan menekuk siku hingga membentuk sudut 90 derajat.",
+                    "Buang napas sambil dorong tubuh ke atas kembali ke posisi awal menggunakan kekuatan lengan belakang (trisep)."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/6kALZikXxLc?si=cCHHaZ0VTSe6ZSM3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "squat": {
+                title: "Squat",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri dengan kaki dibuka sedikit lebih lebar dari bahu.",
+                    "Turunkan tubuh dengan mendorong pinggul ke belakang seperti mau duduk di kursi.",
+                    "Lanjutkan turun hingga posisi jongkok tapi jangan terlalu mentok ke bawah",
+                    "Jaga dada tetap tegak dan punggung lurus, lalu dorong tubuh untuk kembali berdiri."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/l83R5PblSMA?si=P6dwz2HJjyo0Jqbn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "bss": {
+                title: "Bulgarian Split Squat",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri membelakangi bangku atau kursi kecil.",
+                    "Letakkan punggung kaki belakang di atas bangku dan condongkan badan ke depan.",
+                    "Turunkan tubuh menggunakan kaki yang di depan (squat) sampai kaki yang di depan turun mentok.",
+                    "Dorong kembali ke atas secara vertikal sambil menjaga condongan badan ke depan dan ulangi."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/vgn7bSXkgkA?si=s2gfW9ei24NTlwQP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "dumbbellcurl": {
+                title: "Dumbbell Curl",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri atau duduk tegak dengan kaki selebar bahu. Pegang dumbbell di sisi tubuh dengan telapak tangan menghadap ke depan.",
+                    "Pergelangan tangan diputer ke arah luar (tangan kanan searah jarum jam, tangan kiri melawan arah jarum jam)",
+                    "Tanpa mengayunkan tubuh, tekuk siku dan angkat dumbbell ke arah bahu secara cepat. Jaga siku tetap menempel di sisi tubuh.",
+                    "Remas otot bisep dan tahan sebentar di puncak gerakan, lalu turunkan dumbbell ke posisi awal secara perlahan dan terkontrol."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/6DeLZ6cbgWQ?si=2p9Ii6fPBSRVitZp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "hammercurl": {
+                title: "Hammer Curl",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Pegang dumbbell di sisi tubuh dengan punggung tegak. Pegang dumbbell pada posisi vertikalnya.",
+                    "Jaga siku agar tetap menempel di sisi tubuh.",
+                    "Tekuk siku untuk mengangkat dumbbell ke atas, pastikan posisi dumbbell tetap vertikal sepanjang gerakan.",
+                    "Tahan sebentar di puncak gerakan, lalu turunkan perlahan kembali ke sisi tubuh."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/P5sXHLmXmBM?si=mrMFbbAuTU4eFwCu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "lateralraise": {
+                title: "Lateral Raise",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri atau duduk tegak, pegang dumbbell di masing-masing tangan pada sisi tubuh.",
+                    "Dengan telapak tangan menghadap ke arah dalam tubuh dan siku ditekuk sedikit, angkat dumbbell ke samping.",
+                    "Lanjutkan mengangkat sampai lengan sejajar dengan bahu.",
+                    "Tahan sebentar di puncak, lalu turunkan dumbbell kembali ke posisi awal secara perlahan."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/XPPfnSEATJA?si=HiUrAUiEOvXjL99B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "calf": {
+                title: "Calf Raises",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri dengan kaki dibuka selebar bahu di depan dekat dengan tembok, dan taruh telapak tangan di tembok untuk keseimbangan.",
+                    "Jinjitkan tubuh secara cepat dengan mengangkat tumit dari lantai sampai terasa di otot betisnya.",
+                    "Tahan sebentar di puncak gerakan, lalu turunkan tumit kembali ke lantai secara perlahan.",
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/cqDMYUaIXvw?si=XA_uJhsPZVmrYniH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "backdumbbellrows": {
+                title: "Back Dumbbell Rows",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Posisi badan membungkuk ke depan dengan punggung lurus, lutut sedikit ditekuk, dan satu tangan memegang dumbbell sementara tangan lainnya bertumpu di bangku atau meja untuk keseimbangan.",
+                    "Pegang dumbbell di salah satu tangan dengan telapak tangan menghadap ke dalam.",
+                    "Jaga punggung lurus, hingga tubuh bagian atas hampir sejajar dengan lantai.",
+                    "Tarik dumbbell ke arah sisi tubuh, siku membentuk sudut 45 derajat sampai dumbbell mencapai posisi tertinggi.",
+                    "Turunkan dumbbell kembali ke bawah secara perlahan."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/roCP6wCXPqo?si=ci8DSrD_c3QILJtt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "backdumbbellflys": {
+                title: "Back Dumbbell Flys",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri dengan kaki selebar bahu, lutut sedikit ditekuk.",
+                    "Pegang dumbbell posisi vertikalnya dan telapak tangan menghadap ke dalam.",
+                    "Tekuk pinggul untuk membungkuk ke depan seperti posisi rukuk.",
+                    "Gerakkan lengan dari bawah ke samping hingga sejajar dengan lantai.",
+                    "Remas tulang belikat dan turunkan secara perlahan."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/nlkF7_2O_Lw?si=wYJl5T06rGS1Cy7e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "dumbpress": {
+                title: "Dumbbell Press",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berdiri atau duduk tegak, pegang dumbbell di posisi vertikalnya di masing-masing tangan pada sisi tubuh.",
+                    "Angkat dumbbell tepat ke atas bahu, dengan telapak tangan menghadap ke arah muka atau dalam.",
+                    "Dorong dumbbell ke atas sampai lengan benar-benar lurus",
+                    "Tahan sebentar di puncak, lalu turunkan dumbbell kembali ke posisi awal secara perlahan."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/0JfYxMRsUCQ?si=yx0ocDWkiLEoCaqn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            },
+            "glute": {
+                title: "Glute Bridge",
+                reps: "3 set, 80% dari maximum repetisi (istirahat 90-120 detik antar set)",
+                steps: [
+                    "Berbaring telentang dengan lutut ditekuk dan telapak kaki menapak di lantai selebar pinggul.",
+                    "Letakkan tangan di samping tubuh dengan telapak tangan menghadap ke bawah atau pegang dumbbell di bagian bawah perut jika menggunakan dumbbell.",
+                    "Dorong bagian pantat untuk mengangkat pinggul ke atas sampai tubuh membentuk garis lurus dari bahu sampai lutut.",
+                    "Tahan sebentar di puncak gerakan, lalu turunkan pinggul kembali ke lantai secara perlahan."
+                ],
+                media: '<iframe width="560" height="315" src="https://www.youtube.com/embed/cruqsnAyU6A?si=0E7NebclIEH4Peba" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            }
+        };
+
+        function showGuide(key) {
+            const data = workouts[key];
+            const section = document.getElementById('guide-section');
+            const stepsUl = document.getElementById('guide-steps');
+            
+            document.getElementById('guide-title').innerText = data.title;
+            document.getElementById('guide-reps').innerText = data.reps;
+            document.getElementById('guide-media').innerHTML = data.media;
+            
+            stepsUl.innerHTML = '';
+            data.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.innerText = step;
+                stepsUl.appendChild(li);
+            });
+
+            
+            section.style.display = 'block';
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeGuide() {
+            document.getElementById('guide-section').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
